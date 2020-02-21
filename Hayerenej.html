@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="jam.css">
+<title>GMT</title>
+<meta charset="UTF-8"
+<link rel="shortcut icon" type="image/x-icon" href="icon.ico">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  right: 1%;
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-50%);
+}
+
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 18px;
+}
+
+.icon-bar a:hover {
+    background-color: #000;
+}
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.google {
+  background: #dd4b39;
+  color: white;
+}
+
+.vk {
+  background: #007bb5;
+  color: white;
+}
+</style>
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+ body{
+ background-image: url("2.jpg");
+ color:black
+	 }
+@media only screen and (max-width : 735px){
+.jam{
+         position: absolute;
+         right: 0px;
+         display: none;
+      }
+ }
+</style>
+<style>
+   .c {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: red; /* Цвет текста */
+  }
+   .c:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    color: blue;
+   }
+
+.button {
+  padding: 15px 25px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 18px;
+  margin: 2px 14px;
+
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+}
+  </style>
+</head>
+<body>
+<div class="icon-bar">
+  <a href="https://www.facebook.com/GMT2004/" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> 
+  <a href="#" class="twitter"><i class="fa fa-twitter" target="_blank"></i></a> 
+  <a href="#" class="google"><i class="fa fa-google" target="_blank"></i></a> 
+  <a href="#" class="vk"><i class="fa fa-vk" target="_blank"></i></a>
+</div>
+<canvas  id="canvas" class="jam" width="130" height="130"
+style="background-color:transparent">
+</canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+}
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    //hour
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    //minute
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    // second
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+}
+</script>
+
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1><b>GMT Company</b></h1>
+  <h2>Բարի գալուստ GMT ընկերություն</h2>
+</header>
+<!-- Grid -->
+<div class="w3-row">
+<form method="LINK" action="index.html">
+    <input type="submit" class="button" value="English">
+	
+	</form>
+<!-- Blog entries -->
+<div class="w3-col l8 s12">
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-green">
+    <div class="w3-container">
+      <h3><b>Բարի գալուստ թարգմանիչ</b></h3>
+    </div>
+    <div class="w3-container">
+<p>Միգուցե դուք ցանկանում եք հասկանալ անգլերեն, բայց դուք նույնիսկ չեք կարողանում հասկանալ թե ինչ է այստեղ գրված, այդ պատճառով էլ  դուք կարող եք թարգմանել անգլերեն բառեր տեքստի տակ գտնվող կոճակի օգնությամբ </p>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+          <form method="LINK" action="Translate_For_Fun.html">
+		
+    <input type="submit" value="Սեղմեք այստեղ թարգմանիչից օգտվելու համար">
+	<h5></h5>
+
+	</form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Blog entry -->
+ <div class="w3-card-4 w3-margin w3-red">
+    <div class="w3-container">
+      <h3><b>Հաշվիչ</b></h3>
+    </div>
+    <div class="w3-container">
+      <p>Թվաբանական գործողուրյուններ կատարելու համար սեղմեք ներքևի կոճակը</p>
+      <div class="w3-row">
+        <div class="w3-col m18 s8">
+ <form method="LINK" action="calc.html">
+ 
+    <input type="submit" value="Սեղմեք այստեղ հաշվիչից օգտվելու համար">
+	<h5></h5>
+</form>
+        </div>
+      </div>
+    </div>
+</div>
+</hr>
+<hr>
+ <div class="w3-card-4 w3-margin w3-brown">
+    <div class="w3-container">
+      <h3><b>Անգլերեն արտահայտություններ</b></h3>
+    </div>
+    <div class="w3-container">
+      <p>Այստեղ դուք կարող եք ծանոթանալ որոշ  անգլերեն արտահայտությունների  հետ</p>
+      <div class="w3-row">
+        <div class="w3-col m18 s8">
+ <form method="LINK" action="car.html">
+ 
+    <input type="submit" value="Սեղմեք այստեղ  էջը բացելու համար">
+	<h5></h5>
+</form>
+        </div>
+      </div>
+    </div>
+</hr>
+  </div>
+<!-- END BLOG ENTRIES -->
+</div>
+
+<!-- Introduction menu -->
+<div class="w3-col l4">
+  <!-- About Card -->
+  <div class="w3-card w3-margin w3-margin-top">
+    <div class="w3-container w3-brown">
+      <h4><b>GMT ընկերության մասին</b></h4>
+      <p>Ողջույն սիրելիս . Մեր ընկերությունը նոր է ծնվել, ուստի մենք փորձում ենք օգնել ձեզ հասկանալ անգլերեն բառեր, կյանքի լավագույնը ստանալու համար: Մեր ընկերության պատմությունը կարճ է, բայց հետաքրքիր է, քանի որ մեր ընկերությունը նոր է ծնվել, ուստի մենք փորձում ենք օգնել ձեզ թարգմանել բառերը անգլերենից, հայերեն: </p>
+<form method="LINK" action="ttototohayeren.html">
+		
+    <input type="submit" value="Կարդալ ավելին">
+	<h5></h5>
+	</form>
+    </div>
+  </div><hr>
+  <!-- Posts -->
+
+  <!-- Blog news-->
+  <div class="w3-card-4 w3-margin w3-blue">
+    <div class="w3-container">
+      <h3><b>Քերականություն</b></h3>
+    </div>
+    <div class="w3-container">
+<p>Այս էջում դուք կարող եք տեսնել անգլերեն քերականությունը.</p>
+      <div class="w3-row">
+        <div class="w3-col m15 s12">
+          <form method="LINK" action="list.html">	
+    <input type="submit" value="Սեղմեք այստեղ անգլերեն բառարանից օգտվելու համար">
+	<h5></h5>
+	</form>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="w3-card-4 w3-margin w3-red">
+    <div class="w3-container">
+      <h3><b>Ծրագրեր</b></h3>
+    </div>
+
+    <div class="w3-container">
+      <p>հետաքրքիր և պետքական Ծրագրեր ներբեռնելու համար սեղմեք ներքևի կոճակը</p>
+      <div class="w3-row">
+        <div class="w3-col m18 s8">
+ <form method="LINK" action="all.html">
+ 
+    <input type="submit" value="Սեղմեք այստեղ ծրագրերը տեսնելու համար համար">
+	<h5></h5>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div><br>
+<p style="text-align: bottom-left;"> <span style="font-family: arial, helvetica, sans-serif; font-size: 12pt;"><em></em></span></p>
+
+<p style="text-align: bottom-left;"> <span style="font-family: arial, helvetica, sans-serif; font-size: 12pt;"><em></em></span></p><p style="text-align: bottom-left;"> <span style="font-family: arial, helvetica, sans-serif; font-size: 12pt;"><em></em></span></p>
+<!-- END w3-content -->
+</div>
+<footer>
+<p style="text-align: bottom-left;"> <span style="font-family: arial, helvetica, sans-serif; font-size: 12pt;"><em>                                                                                                             
+ 
+ 
+ 
+ 
+Powered by GMT © 2018</em></span></p>
+</footer>
+</body>
+</html>
+
+
+
+
+
